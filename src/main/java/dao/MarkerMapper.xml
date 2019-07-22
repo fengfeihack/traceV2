@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.MarkerDAO" >
+    <resultMap type="bean.MarkerBean" id="markerMap">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime"/>
+        <result column="pointX" property="pointX"/>
+        <result column="pointY" property="pointY"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+    <select id="getMarkerByUser" parameterType="Long" resultMap="markerMap">
+        SELECT * FROM marker WHERE user_id = #{userId}
+    </select>
+    <insert id="insertMarker" parameterType="bean.MarkerBean" >
+        INSERT INTO marker(user_id,pointX,pointY,create_time) VALUE (#{userId},#{pointX},#{pointY},#{createTime})
+    </insert>
+    <delete id="deleteMarkerInfo" parameterType="Long">
+        DELETE FROM  marker WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.RecorderDAO" >
+    <resultMap id="recorderMap" type="bean.RecorderBean">
+        <id column="id" property="id"/>
+        <result column="title" property="title" />
+        <result column="log_time" property="logTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="location" property="location"/>
+        <result column="partner" property="partner"/>
+        <result column="images" property="images"/>
+        <result column="user_id" property="userId"/>
+        <result column="marker_id" property="markerId"/>
+    </resultMap>
+    <resultMap id="imageMap" type="bean.ImageBean">
+        <id column="id" property="id"/>
+        <result column="path" property="path"/>
+    </resultMap>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE  FROM  recorder WHERE id IN (#{id})
+    </delete>
+    <update id="update" parameterType="bean.RecorderBean">
+        UPDATE recorder SET
+        title=#{title},log_time = #{logTime},create_time=#{createTime},location=#{location},partner=#{partner},images=#{images}
+        WHERE id =#{id}
+    </update>
+    <select id="list" parameterType="bean.PageList" resultMap="recorderMap">
+        SELECT * FROM recorder WHERE user_id = #{recorder.userId}
+        <if test="recorder.startTime != null"> AND startTime = #{recorder.startTime}</if>
+        <if test="recorder.endTime != null"> AND endTime = #{recorder.endTime}</if>
+        <if test="recorder.title != null">AND title like concat(concat('%',#{recorder.title}),'%')</if>
+        order by id asc
+        limit #{page.startIndex},#{page.pageSize}
+    </select>
+    <insert id="insert" parameterType="bean.RecorderBean" >
+        INSERT INTO recorder(title,log_time,create_time,location,partner,user_id,marker_id,note,images)
+        VALUE(#{title},#{logTime},#{createTime},#{location},#{partner},#{userId},#{markerId},#{note},#{images})
+    </insert>
+    <insert id="saveImage" parameterType="bean.ImageBean">
+      <selectKey keyProperty="id" resultType="Integer"  order="AFTER">
+          SELECT   LAST_INSERT_ID();
+      </selectKey>
+        INSERT  INTO  image(path,create_time) VALUE (#{path},#{createTime})
+    </insert>
+    <select id="getRecorderNum" parameterType="bean.RecorderBean" resultType="Integer">
+        SELECT COUNT(*) FROM  recorder WHERE 1=1 AND user_id = #{userId}
+        <if test="markerId != null">
+            AND marker_id = #{markerId}
+        </if>
+    </select>
+    <select id="getImagesByRecorderImages" parameterType="bean.RecorderBean" resultMap="imageMap">
+        SELECT * FROM image WHERE  id IN  (${images}) ORDER  BY id DESC
+    </select>
+    <select id="getRecorderById" parameterType="Integer" resultType="bean.RecorderBean">
+        SELECT * FROM recorder WHERE id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,46 @@
+.content{
+    display: block;
+}
+.center{
+    margin-left: 15%;
+    margin-right: 15%;
+    height: inherit;
+}
+.header{
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 15px;
+    height: 130px;
+}
+.header iframe{
+    height: 130px;
+    width: 100%;
+}
+.map{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 700px;
+}
+.friends{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height:250px;
+}
+.friends .message{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+}
+.friends .careMap{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 200px;
+}
+.friend{
+    height: 200px;
+    width: 20%;
+}
+.map iframe{
+    height: 700px;
+    width: 100%;
+}

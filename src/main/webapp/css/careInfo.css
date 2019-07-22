@@ -1,0 +1,51 @@
+.content {
+    display: block;
+}
+
+.center {
+    margin-left: 15%;
+    margin-right: 15%;
+    height: inherit;
+}
+
+.header {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 15px;
+    height: 130px;
+}
+.careInfo{
+    margin-top: 20px;
+    margin-left: 10%;
+    width: 80%;
+    height: inherit;
+}
+.pageHeader{
+    height: 50px;
+    width: 100%;
+    font-family: "Arial", "Microsoft YaHei UI";
+    font-size: medium;
+    font-style: italic;
+
+}
+.pageHeader span {
+    margin-left: 20px;
+}
+.userMap{
+    height: inherit;
+    width: 90%;
+    margin-left: 5%;
+}
+#mapTable table {
+    height:inherit;
+    width: 100%;
+}
+#beCaredUserMap{
+    height:300px;
+    width: 30%;
+}
+#beCaredUserMap iframe {
+    height: 300px;
+    width: 100%;
+}
+
